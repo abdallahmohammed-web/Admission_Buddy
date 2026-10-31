@@ -1,32 +1,28 @@
 // ================================================================
 // تطبيق دليلي في القبول الجامعي — المنطق التفاعلي (النسخة المحدثة)
 // ================================================================
-// ⚠️⚠️⚠️ مهم جداً ⚠️⚠️⚠️
-// انسخ من ملفك القديم الأجزاء التالية والصقها هنا في الموضع المحدد:
-//   - const allUniversities = [...]         ← قائمة الجامعات
-//   - const database2024_2025 = [...]       ← بيانات 2024-2025
-//   - const database2025_2026 = [...]       ← بيانات 2025-2026
-//   - const database2026_2027 = [];         ← فارغة (قريباً)
-//   - const database2027_2028 = [];         ← فارغة
-//   - const database2028_2029 = [];         ← فارغة
-//   - const database2029_2030 = [];         ← فارغة
-// ================================================================
 
-// ⬇️⬇️⬇️ الصق قواعد البيانات هنا (استبدل هذا السطر بمحتوى ملفك) ⬇️⬇️⬇️
+// ⚠️⚠️⚠️ الصق قواعد البيانات هنا ⚠️⚠️⚠️
+// انسخ من ملفك القديم:
+//   - const allUniversities = [...]
+//   - const database2024_2025 = [...]
+//   - const database2025_2026 = [...]
+//   - const database2026_2027 = [...]
+//   - const database2027_2028 = [];
+//   - const database2028_2029 = [];
+//   - const database2029_2030 = [];
 
 /* ================== ابدأ لصق قواعد البيانات ================== */
 
-// const allUniversities = [ ... ];        <-- من ملفك القديم
-// const database2024_2025 = [ ... ];      <-- من ملفك القديم
-// const database2025_2026 = [ ... ];      <-- من ملفك القديم
-// const database2026_2027 = [];
+// const allUniversities = [ ... ];
+// const database2024_2025 = [ ... ];
+// const database2025_2026 = [ ... ];
+// const database2026_2027 = [ ... ];
 // const database2027_2028 = [];
 // const database2028_2029 = [];
 // const database2029_2030 = [];
 
 /* =================== انتهى لصق قواعد البيانات =================== */
-
-// ⬆️⬆️⬆️ لا تعدل شيئاً بعد هذا السطر إلا إذا كنت تعرف ما تفعل ⬆️⬆️⬆️
 
 
 // ===================== حالة التطبيق =====================
@@ -38,16 +34,16 @@ let currentSelectedYear = '2024-2025';
 let currentTabFilter = 'all';
 let currentLiveKeyword = '';
 
-// 2️⃣ الترقيم
+// الترقيم
 let currentPage = 1;
 const RESULTS_PER_PAGE = 15;
 
-// 4️⃣ حدود المفضلة: 50 عنصر = 40 جامعة/كلية + 10 معاهد
+// حدود المفضلة: 50 عنصر = 40 جامعة/كلية + 10 معاهد
 const MAX_FAV_TOTAL = 50;
 const MAX_FAV_UNIVERSITIES = 40;
 const MAX_FAV_INSTITUTES = 10;
 
-// 5️⃣ الوضع الليلي
+// الوضع الليلي
 const DARK_MODE_KEY = "uniguide_dark_mode";
 
 // ===================== التهيئة =====================
@@ -265,11 +261,9 @@ function searchDepartments() {
     filteredResults.sort((a, b) => b.المعدل - a.المعدل);
     currentSearchResults = filteredResults;
 
-    // إعادة الترقيم لصفحة 1
     currentPage = 1;
     applyFiltersAndRender();
 
-    // 1️⃣ التمرير التلقائي إلى قسم النتائج (عند الإرسال فقط)
     const resultsSection = document.getElementById("resultsSection");
     if (resultsSection) {
         setTimeout(() => {
@@ -286,20 +280,17 @@ function applyFiltersAndRender() {
 
     let finalResults = currentSearchResults;
 
-    // تصفية حسب التبويب
     if (currentTabFilter === 'accepted') {
         finalResults = finalResults.filter(item => currentUserGrade >= item.المعدل);
     } else if (currentTabFilter === 'maybe') {
         finalResults = finalResults.filter(item => currentUserGrade < item.المعدل);
     }
 
-    // تصفية حسب الكلمة المفتاحية اللحظية
     if (currentLiveKeyword.trim() !== '') {
         const kw = currentLiveKeyword.trim().toLowerCase();
         finalResults = finalResults.filter(item => item["الجامعة/الكلية"].toLowerCase().includes(kw));
     }
 
-    // 2️⃣ الترقيم — 15 نتيجة لكل صفحة
     const totalFound = finalResults.length;
     const totalPages = Math.max(1, Math.ceil(totalFound / RESULTS_PER_PAGE));
 
@@ -337,7 +328,6 @@ function applyFiltersAndRender() {
 
     if (resultsSection) resultsSection.classList.remove("hidden");
 
-    // 2️⃣ شريط الترقيم
     renderPaginationBar(totalPages);
 }
 
@@ -383,7 +373,7 @@ function createResultCard(result, isAccepted, userGrade, yearSelect) {
 }
 
 // -----------------------------------------------
-// 2️⃣ شريط الترقيم (Pagination)
+// شريط الترقيم (Pagination)
 // -----------------------------------------------
 function renderPaginationBar(totalPages) {
     const bar = document.getElementById("paginationBar");
@@ -469,16 +459,19 @@ function toggleFavoriteItem(id, year) {
 }
 
 // -----------------------------------------------
-// 4️⃣ عرض المفضلة — مقسمة لعمودين (25/25) للطباعة
+// عرض المفضلة — مقسمة لعمودين (25/25) للطباعة
 // -----------------------------------------------
 function renderFavoritesList() {
     const section = document.getElementById("favoritesSection");
     const container = document.getElementById("favoritesListContainer");
     const counter = document.getElementById("favoritesCounter");
     const navFavBadge = document.getElementById("navFavBadge");
+    const mobileFavBadge = document.getElementById("mobileFavBadge");   // ✅ شارة الموبايل
     const printHeader = document.getElementById("printHeader");
 
-    if (navFavBadge) navFavBadge.textContent = favoritesList.length;
+    // ✅ تحديث شارة الديسكتوب وشارة الموبايل معاً
+    if (navFavBadge)    navFavBadge.textContent    = favoritesList.length;
+    if (mobileFavBadge) mobileFavBadge.textContent = favoritesList.length;
 
     if (!section || !container || !counter) return;
 
@@ -494,7 +487,6 @@ function renderFavoritesList() {
 
     counter.textContent = `(${favoritesList.length} من أصل ${MAX_FAV_TOTAL} — ${universitiesCount} جامعة/كلية + ${institutesCount} معهد)`;
 
-    // ترويسة الطباعة العربية الديناميكية
     if (printHeader) {
         const dateStr = new Date().toLocaleDateString("ar-IQ");
         printHeader.innerHTML = `
@@ -503,7 +495,6 @@ function renderFavoritesList() {
         `;
     }
 
-    // تقسيم متوازن إلى عمودين — عند 50 عنصر: 25 / 25
     const splitIndex = Math.ceil(favoritesList.length / 2);
 
     const buildItemHtml = (item, index) => `
@@ -536,13 +527,11 @@ function renderFavoritesList() {
         </div>
     `;
 
-    // العمود الأيمن (العناصر 1..splitIndex)
     let column1Html = "";
     for (let i = 0; i < splitIndex; i++) {
         column1Html += buildItemHtml(favoritesList[i], i);
     }
 
-    // العمود الأيسر (العناصر splitIndex..end)
     let column2Html = "";
     for (let i = splitIndex; i < favoritesList.length; i++) {
         column2Html += buildItemHtml(favoritesList[i], i);
@@ -553,7 +542,6 @@ function renderFavoritesList() {
         <div class="fav-column fav-column-left">${column2Html}</div>
     `;
 
-    // إعادة تفعيل السحب والإفلات
     initFavoritesDragDrop();
 }
 
@@ -597,7 +585,7 @@ function scrollToSearch() {
 }
 
 // -----------------------------------------------
-// 3️⃣ إعادة ترتيب المفضلة: أزرار ▲▼ + سحب وإفلات + ترتيب حسب المعدل
+// إعادة ترتيب المفضلة: أزرار ▲▼ + سحب وإفلات + ترتيب حسب المعدل
 // -----------------------------------------------
 function moveFavorite(index, direction) {
     const newIndex = index + direction;
@@ -668,7 +656,7 @@ function sortFavoritesByGrade() {
 }
 
 // -----------------------------------------------
-// 5️⃣ الوضع الليلي (Dark Mode) + localStorage
+// الوضع الليلي (Dark Mode) + localStorage
 // -----------------------------------------------
 function applyDarkMode(isDark) {
     document.body.classList.toggle("dark", isDark);
@@ -697,7 +685,7 @@ function initDarkMode() {
 }
 
 // -----------------------------------------------
-// 5. التنبيهات والأحداث التفاعلية
+// التنبيهات والأحداث التفاعلية
 // -----------------------------------------------
 function showToast(message, type = 'success') {
     const container = document.getElementById("toastContainer");

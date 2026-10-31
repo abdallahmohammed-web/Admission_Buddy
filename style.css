@@ -534,7 +534,6 @@ select.fixed-input {
 
 /* ================================================
    حاوية المفضلة — على الشاشة: قائمة عمودية عادية
-   (العمودان "يذوبان" باستخدام display:contents)
    ================================================ */
 #favoritesListContainer {
     display: flex;
@@ -542,7 +541,6 @@ select.fixed-input {
     gap: 12px;
 }
 
-/* على الشاشة: نُخفي الفصل بين العمودين ليظهرا كقائمة واحدة */
 .fav-column {
     display: contents;
 }
@@ -832,7 +830,6 @@ body.dark .toast { background: #1e293b; }
 
     .no-print { display: none !important; }
 
-    /* ترويسة عربية مضغوطة */
     .print-header {
         display: block !important;
         direction: rtl;
@@ -857,7 +854,6 @@ body.dark .toast { background: #1e293b; }
         line-height: 1.2;
     }
 
-    /* الحاوية: صف أفقي، RTL ⇒ العمود الأول (الأيمن) هو items 1–25 */
     #favoritesListContainer {
         max-width: 100% !important;
         display: flex !important;
@@ -868,7 +864,6 @@ body.dark .toast { background: #1e293b; }
         margin: 0 !important;
     }
 
-    /* كل عمود: عمودي ويستحوذ على نصف العرض */
     .fav-column {
         display: flex !important;
         flex-direction: column !important;
@@ -877,7 +872,6 @@ body.dark .toast { background: #1e293b; }
         min-width: 0 !important;
     }
 
-    /* عنصر مفضلة مضغوط ليناسب 25 عنصراً في عمود واحد بورقة A4 */
     .favorite-item {
         display: flex !important;
         direction: rtl;
@@ -901,7 +895,6 @@ body.dark .toast { background: #1e293b; }
         gap: 4px !important;
     }
 
-    /* تصغير شارة الرقم */
     .favorite-item .w-7.h-7 {
         width: 15px !important;
         height: 15px !important;
@@ -931,6 +924,5 @@ body.dark .toast { background: #1e293b; }
         color: #0f172a !important;
     }
 
-    /* إخفاء مقبض السحب في الطباعة */
     .drag-handle { display: none !important; }
 }
